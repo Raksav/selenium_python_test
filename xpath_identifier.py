@@ -19,6 +19,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
+import config
 import session
 
 
@@ -181,9 +182,7 @@ if __name__ == "__main__":
 
     # Get the URL and parse
     # url = "http://www.google.com"
-    ex_type = input("run/debug : ")
-
-    if ex_type == "run":
+    if not config.debug:
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
         driver.get(input("Enter URL: "))
@@ -203,7 +202,7 @@ if __name__ == "__main__":
         # session_url = input("Session URL : ")
         session_id = session.session_id
         # session_id = input("Session ID : ")
-        driver = webdriver.Remote(command_executor=session_url, desired_capabilities={},options=opt)
+        driver = webdriver.Remote(command_executor=session_url, desired_capabilities={}, options=opt)
         # Attach to the session id you extracted
         driver.session_id = session_id
         driver.get(input("URL : "))
